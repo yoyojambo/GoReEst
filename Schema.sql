@@ -9,8 +9,8 @@ CREATE TABLE Cliente (
 CREATE TABLE PropiedadesClientes (
     IdPropiedad INT PRIMARY KEY AUTO_INCREMENT,
     IdCliente INT,
-    Lat DECIMAL(9,6),
-    Long DECIMAL(9,6),
+    `Lat` DECIMAL(9,6),
+    `Long` DECIMAL(9,6),
     Ciudad VARCHAR(100),
     Estado VARCHAR(100),
     Address VARCHAR(255),
@@ -24,8 +24,8 @@ CREATE TABLE PropiedadesClientes (
 CREATE TABLE PropiedadesAsociadas (
     IdPropiedadAsociada INT PRIMARY KEY AUTO_INCREMENT,
     IdPropiedad INT,
-    Lat DECIMAL(9,6),
-    Long DECIMAL(9,6),
+    `Lat` DECIMAL(9,6),
+    `Long` DECIMAL(9,6),
     Ciudad VARCHAR(100),
     Estado VARCHAR(100),
     Address VARCHAR(255),
