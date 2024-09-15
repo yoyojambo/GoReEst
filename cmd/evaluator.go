@@ -19,6 +19,7 @@ func main() {
 	r.LoadHTMLGlob("views/*")
 	r.StaticFile("/favicon.ico", "./assets/favicon.ico")
 	r.StaticFile("/Geocoding.js", "./assets/Geocoding.js")
+	r.StaticFile("/maps.js","/assets/maps.js")
 	r.Static("/assets", "./assets")
 
 	users.Users()["admin"] = "secret"
