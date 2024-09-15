@@ -49,13 +49,7 @@
     </style>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/videos">Library</a>
-        <a href="/settings">Account</a>
-        <a href="/users">Admin</a>
-      </nav>
-    </header>
+    {{template "header"}}
     <h1>Users</h1>
     <ul id="user-list">
       {{template "user-list" . }}

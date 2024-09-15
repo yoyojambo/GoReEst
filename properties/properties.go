@@ -100,6 +100,15 @@ func yourPropertiesFunc(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "properties.html", props_iter)
 }
 
+func postNewProperty(ctx *gin.Context) {
+	user := ctx.MustGet("AuthUser")
+
+	lat := ctx.PostForm("Latitude")
+	lon := ctx.PostForm("Longitude")
+	addr := ctx.PostForm("Adress")
+	sqft := ctx.PostForm("Area")
+}
+
 // EvaluateProperty takes a `Property` object and its adjacents, and
 // creates an `Evaluation` that takes into account historic data.
 func EvaluateProperty(prop Property, adjacents []Property) Evaluation {
