@@ -1,12 +1,15 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
 	"evaluator/users"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -14,6 +17,7 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("views/*")
 	r.StaticFile("/favicon.ico", "./assets/favicon.ico")
+	r.StaticFile("/Geocoding.js", "./assets/Geocoding.js")
 	r.Static("/assets", "./assets")
 
 	users.Users()["admin"] = "secret"
@@ -30,13 +34,21 @@ func main() {
 		ctx.HTML(http.StatusOK, "login.html", gin.H{})
 	})
 
+	err := godotenv.Load()
+	if err != nil {
+		panic("Could not load .env!: " + err.Error())
+	}
+
+	api_keys := gin.H{ "googleapikey" :os.Getenv("google_maps")}
 	
 	// Se puede crear un grupo que no extiende el relative path,
 	// significa que agregar middlewares es trivial dentro de una
 	// ruta. (Lo digo para que lo de autenticacion este en su propio modulo)
 	authed := r.Group("/")
-	authed.Use(func(ctx *gin.Context) {fmt.Println("Heloo")})
-	authed.GET("/lol")
+	//authed.Use(func(ctx *gin.Context) {fmt.Println("Heloo")})
+	authed.GET("/new_home", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "new_home.html", api_keys)
+	})
 
 	users.LoadUsersHandlers(r)
 	

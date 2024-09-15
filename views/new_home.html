@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Page with Map</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">GoRS</div>
+        </nav>
+    </header>
+    <main>
+        <h4>Add new home address</h4>
+        <div id="controls">
+            <input id="address" type="text" placeholder="Enter a location">
+            <input id="submit" type="button" value="Find"> <!-- Changed value here -->
+        </div>
+        <div id="map"></div>
+        <div id="response-container"></div>
+        <h3>House Value</h3>
+        <div id="info-box">
+            <p>City: Los Angeles</p>
+            <p>State: California</p>
+            <p>Street name: Rossmore</p>
+            <p>Street number: 585</p>
+            <p>Price: 649000$</p>
+        </div>
+    </main>
+
+    <script src="Geocoding.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{.googleapikey}}=&callback=initMap&v=weekly"
+        defer
+    ></script>
+</body>
+</html>
