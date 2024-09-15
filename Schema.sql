@@ -18,6 +18,7 @@ CREATE TABLE PropiedadesClientes (
     SqFt INT,
     TipoTerreno VARCHAR(50),
     Status VARCHAR(50),
+    last_modified INT(11) DEFAULT UNIX_TIMESTAMP(),
     FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente)
 );
 
