@@ -1,0 +1,83 @@
+{{define "greatSuccess"}}
+<h1><b>Great Success</b></h1>
+{{end}}
+{{define "userListElement"}}
+<li id="user-{{.}}", class="user-item">
+  {{.}} <button hx-delete="/users/{{.}}" hx-target="#user-{{.}}" hx-swap="delete swap:0.5s" hx-indicator=".throbber">🗑️</button>
+  <span class="throbber" style="display:none;"></span>
+</li>
+{{end}}
+{{define "user-list"}}
+{{range $name, $p := .}}
+{{template "userListElement" $name}}
+{{end}}
+{{end}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    {{template "base"}}
+    <style>
+      .throbber {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border: 2px solid #FFFFFF;
+          border-radius: 50%;
+          border-top-color: #AAA;
+          animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+            to { transform: rotate(360deg); }
+      }
+      
+      .user-item {
+          transition: height 0.5s ease, opacity 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+          overflow: hidden;
+	  min-height: 0px;
+      }
+
+      .htmx-swapping {
+          height: 0;
+          opacity: 0;
+          margin: 0;
+          padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/videos">Library</a>
+        <a href="/settings">Account</a>
+        <a href="/users">Admin</a>
+      </nav>
+    </header>
+    <h1>Users</h1>
+    <ul id="user-list">
+      {{template "user-list" . }}
+    </ul>
+    <form id="add-user-form" hx-post="/users/new" hx-target="#user-list" hx-swap="beforeend">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <br>
+      <button type="submit">Add User</button>
+    </form>
+
+    <script>
+        document.addEventListener('htmx:beforeRequest', function(evt) {
+            if (evt.detail.elt.matches('[hx-delete]')) {
+                const listItem = evt.detail.elt.closest('li');
+                const throbber = listItem.querySelector('.throbber');
+                throbber.style.display = 'inline-block';
+            }
+        });
+    </script>
+  </body>
+</html>

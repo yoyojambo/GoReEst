@@ -1,0 +1,51 @@
+{{define "property"}}
+<div class="card" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+    <h2 class="location">{{.Location}}</h2>
+    <p class="value"><strong>Value:</strong> ${{printf "%.2f" .Value}}</p>
+</div>
+{{end}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracked Properties</title>
+    <style>
+        body {
+            background-color: #f0f4f8;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .property-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .location {
+            color: #333;
+        }
+        .value {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tracked Properties</h1>
+    </header>
+
+    <main>
+        <section class="property-grid">
+            {{range .}}
+                {{template "property" .}}
+            {{else}}
+                <p>No properties to display.</p>
+            {{end}}
+        </section>
+    </main>
+</body>
+</html>
