@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Page with Map</title>
+    <link rel="stylesheet" href="assets/styles copy.css" />
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -12,28 +13,102 @@
             <div class="logo">GoRS</div>
         </nav>
     </header>
-    <main>
-        <h4>Add new home address</h4>
-        <div id="controls">
-            <input id="address" type="text" placeholder="Enter a location">
-            <input id="submit" type="button" value="Find"> <!-- Changed value here -->
-        </div>
-        <div id="map"></div>
-        <div id="response-container"></div>
-        <h3>House Value</h3>
-        <div id="info-box">
-            <p>City: Los Angeles</p>
-            <p>State: California</p>
-            <p>Street name: Rossmore</p>
-            <p>Street number: 585</p>
-            <p>Price: 649000$</p>
-        </div>
-    </main>
-
+    
     <script src="Geocoding.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{.googleapikey}}=&callback=initMap&v=weekly"
         defer
     ></script>
+      <body>
+        <main>
+            <h4>Add new home address</h4>
+            <div id="controls">
+                <input id="address" type="text" placeholder="Enter a location">
+                <input id="submit" type="button" value="Find"> 
+            </div>
+            <div id="map"></div>
+            <div id="response-container"></div>
+            <h3>House Value</h3>
+            <div id="info-box">
+                <p>City: Los Angeles</p>
+                <p>State: California</p>
+                <p>Street name: Rossmore</p>
+                <p>Street number: 585</p>
+                <p>Price: 649000$</p>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="toggleDropdown('dropdown2')">Show Map 2</button>
+                    <div id="dropdown2" class="dropdown-content">
+                      <div class="map-container" data-lat="40.730610" data-lng="-73.935242" id="map2"></div>
+                    </div>
+                </div>
+                  <script>
+                    (g => {
+                      var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
+                      b = b[c] || (b[c] = {});
+                      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => {
+                        await (a = m.createElement("script"));
+                        e.set("libraries", [...r] + "");
+                        for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                        e.set("callback", c + ".maps." + q);
+                        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                        d[q] = f;
+                        a.onerror = () => h = n(Error(p + " could not load."));
+                        a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                        m.head.append(a);
+                      }));
+                      d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+                    })({ key: "AIzaSyAg71dhtBIpxasgHCMM6_b4F3kqsGDYSTA", v: "weekly" });
+                  </script>
+                  <script src="assets/maps.js"></script>
+            </div>
+            <form action="/submit" method="post">
+                <label for="latitude">Latitude:</label>
+                <input type="number" id="latitude" name="latitude" step="any" required><br>
+        
+                <label for="longitude">Longitude:</label>
+                <input type="number" id="longitude" name="longitude" step="any" required><br>
+        
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" required><br>
+        
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required><br>
+        
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required><br>
+        
+                <label for="sqft">Size:</label>
+                <input type="number" id="sqft" name="sqft" step="1" required><br>
+        
+                <label for="type">Type:</label>
+                <select id="type" name="type" required>
+                    <option value="apartment">Apartment</option>
+                    <option value="condo_townhome">Condo/Townhome</option>
+                    <option value="condo_townhome_rowhome_coop">Condo/Townhome/Rowhome/Coop</option>
+                    <option value="condop">Condop</option>
+                    <option value="condos">Condos</option>
+                    <option value="coop">Coop</option>
+                    <option value="duplex_triplex">Duplex/Triplex</option>
+                    <option value="farm">Farm</option>
+                    <option value="land">Land</option>
+                    <option value="multi_family">Multi-Family</option>
+                    <option value="single_family">Single-Family</option>
+                    <option value="townhomes">Townhomes</option>
+                </select><br>
+        
+                <label for="value">Value:</label>
+                <input type="number" id="value" name="value" step="any" required><br>
+        
+                <label for="updated">Updated:</label>
+                <input type="datetime-local" id="updated" name="updated" required><br>
+        
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="for_sale">For Sale</option>
+                    <option value="for_rent">For Rent</option>
+                    <option value="sold">Sold</option>
+                </select><br>
+        </main> 
+      </body>
 </body>
 </html>
