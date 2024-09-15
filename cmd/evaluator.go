@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"evaluator/properties"
 	"evaluator/users"
 
 	"github.com/joho/godotenv"
@@ -51,6 +52,7 @@ func main() {
 	})
 
 	users.LoadUsersHandlers(r)
+	properties.LoadPropertiesHandlers(r)
 	
 
 	r.Run(":3000") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")

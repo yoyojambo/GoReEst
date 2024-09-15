@@ -1,7 +1,7 @@
 {{define "property"}}
 <div class="card" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
     <h2 class="location">{{.Location}}</h2>
-    <p class="value"><strong>Value:</strong> ${{printf "%.2f" .Value}}</p>
+    <p class="value"><strong>Value:</strong> ${{.Value}}</p>
 </div>
 {{end}}
 
@@ -32,6 +32,7 @@
             color: #007bff;
         }
     </style>
+    {{template "base"}}
 </head>
 <body>
     <header>

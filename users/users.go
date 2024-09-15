@@ -95,7 +95,12 @@ func LoadUsersHandlers(r *gin.Engine) {
 	authed := r.Group("/", AuthMiddleware())
 	
 	authed.GET("/users", func(ctx *gin.Context) {
-		ctx.HTML(http.StatusOK, "users.html", Users())
+		user := ctx.MustGet("AuthUser")
+		if user == "admin" {
+			ctx.HTML(http.StatusOK, "users.html", Users())
+		} else {
+			ctx.Redirect(http.StatusPermanentRedirect, "/my_properties")
+		}
 	})
 
 	authed.POST("/users/new", AddUserFunc)
@@ -129,7 +134,9 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 		
 		if claims, ok := token.Claims.(jwt.MapClaims); ok {
-			fmt.Println(claims["user"], claims["exp"])
+			usr := claims["user"].(string)
+			fmt.Println("Setting (", usr, ")", claims["exp"])
+			ctx.Set("AuthUser", usr)
 		} else {
 			//ctx.AbortWithStatus(http.StatusBadRequest)
 			ctx.Redirect(http.StatusTemporaryRedirect, "/login")
